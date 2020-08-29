@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.Diagnostics;
+using System.IO;
 
 namespace BestJoke
 {
@@ -156,6 +157,18 @@ namespace BestJoke
 			}
 		}
 
+		private void Log(string str)
+		{
+			try
+			{
+				string log_str = $"{DateTime.Now} > {str}\r\n";
+				File.AppendAllText("log.txt", log_str);
+			}
+			catch
+			{
+				//
+			}
+		}
 	}
 
 	class Worker
