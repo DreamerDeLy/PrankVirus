@@ -44,7 +44,7 @@ namespace BestJoke
 		{
 			this.Hide();
 			e.Cancel = true;
-			Cursor.Position = new Point(0, 0);
+			// Cursor.Position = new Point(0, 0);
 		}
 
 		private void timerReadKeys_Tick(object sender, EventArgs e)
@@ -97,24 +97,54 @@ namespace BestJoke
 			if (on)
 			{
 				// --------------------------------------------
-				var proc = Process.GetCurrentProcess();
 
-				if (proc != null)
+				try
 				{
-					var pointer = proc.MainWindowHandle;
+					var proc = Process.GetCurrentProcess();
 
-					SetForegroundWindow(pointer);
-					SendMessage(pointer, WM_SYSCOMMAND, SC_RESTORE, 0);
+					if (proc != null)
+					{
+						var pointer = proc.MainWindowHandle;
+
+						SetForegroundWindow(pointer);
+						SendMessage(pointer, WM_SYSCOMMAND, SC_RESTORE, 0);
+					}
 				}
+				catch (Exception ex)
+				{
+					Log("timerMouseMove_Tick 1 " + ex.ToString());
+				}
+
 				// --------------------------------------------
 
-				Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+				int width = 1920;
+				int height = 1080;
 
 				Random rnd = new Random();
-				//Cursor.Position = new Point(rnd.Next(0, resolution.Width), rnd.Next(0, resolution.Height));
 
-				Worker.SetCursorPos(rnd.Next(0, resolution.Width), rnd.Next(0, resolution.Height));
-				Worker.mouse_event(0x1, rnd.Next(0, resolution.Width), rnd.Next(0, resolution.Height), 0, 0); //move
+				try
+				{
+					Size resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size;
+
+					width = resolution.Width;
+					height = resolution.Height;
+				}
+				catch (Exception ex)
+				{
+					Log("Screen.PrimaryScreen.Bounds.Size " + ex.ToString());
+				}
+
+				try
+				{
+					//Cursor.Position = new Point(rnd.Next(0, resolution.Width), rnd.Next(0, resolution.Height));
+
+					Worker.SetCursorPos(rnd.Next(0, width), rnd.Next(0, height));
+					Worker.mouse_event(0x1, rnd.Next(0, width), rnd.Next(0, height), 0, 0); //move
+				}
+				catch (Exception ex)
+				{
+					Log("Mouse mobe " + ex.ToString());
+				}
 			}
 		}
 
@@ -122,9 +152,16 @@ namespace BestJoke
 		{
 			if (on)
 			{
-				FormFuck ff = new FormFuck();
-				ff.Show();
-				forms.Add(ff);
+				try
+				{
+					FormFuck ff = new FormFuck();
+					ff.Show();
+					forms.Add(ff);
+				}
+				catch (Exception ex)
+				{
+					Log("timerOpenWindow_Tick " + ex.ToString());
+				}
 			}		
 		}
 
@@ -150,9 +187,9 @@ namespace BestJoke
 				{
 					System.Diagnostics.Process.Start(sites[rnd.Next(0, sites.Count)]);
 				}
-				catch
+				catch (Exception ex)
 				{
-					//
+					Log("timerSiteOpen_Tick " + ex.ToString());
 				}
 			}
 		}
