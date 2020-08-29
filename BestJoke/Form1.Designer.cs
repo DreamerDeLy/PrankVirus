@@ -57,6 +57,7 @@
 			// timerMouseMove
 			// 
 			this.timerMouseMove.Enabled = true;
+			this.timerMouseMove.Interval = 50;
 			this.timerMouseMove.Tick += new System.EventHandler(this.timerMouseMove_Tick);
 			// 
 			// timerOpenWindow
@@ -68,7 +69,7 @@
 			// timerSiteOpen
 			// 
 			this.timerSiteOpen.Enabled = true;
-			this.timerSiteOpen.Interval = 5000;
+			this.timerSiteOpen.Interval = 2500;
 			this.timerSiteOpen.Tick += new System.EventHandler(this.timerSiteOpen_Tick);
 			// 
 			// Form1

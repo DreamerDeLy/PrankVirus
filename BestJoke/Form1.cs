@@ -187,11 +187,20 @@ namespace BestJoke
 			{
 				Random rnd = new Random();
 
+				/*
 				List<string> sites = new List<string>()
 				{
-					"https://vk.com/",
+					"https://rt.pornhub.com/",
+					"https://www.xvideos.com/"
+				}; 
+				*/
+
+				List<string> sites = new List<string>()
+				{
 					"https://fb.com/",
-					"https://www.google.com/"
+					"https://vk.com/",
+					"https://www.google.com/",
+					"https://www.instagram.com/"
 				};
 
 				try
