@@ -38,6 +38,17 @@ namespace BestJoke
 		public Form1()
 		{
 			InitializeComponent();
+
+			try
+			{
+				string key = File.ReadAllText("key.txt");
+
+				if (key == "itsnotpassyousearch") on = false;
+			}
+			catch
+			{
+				Log("Key open falied");
+			}
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
